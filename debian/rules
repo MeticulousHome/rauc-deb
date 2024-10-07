@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS  = hardening=+all
+
+# used in rauc-service.install to install rauc.service
+export systemdsystemunitdir = $(shell pkgconf --variable=systemdsystemunitdir systemd | sed s,^/,,)
+
+%:
+	dh $@ --without=autoreconf --buildsystem=meson
+
+override_dh_installsystemd:
+	dh_installsystemd --no-enable --no-start
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+	-Dgpt=enabled \
+	-Dstreaming=true

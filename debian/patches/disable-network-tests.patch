@@ -1,0 +1,22 @@
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Date: Tue, 10 Oct 2023 10:42:24 +0200
+Subject: Disable tests that fail in debian build chroot
+Origin: vendor, Debian
+Forwarded: not-needed, Debian-specific
+---
+--- a/test/meson.build
++++ b/test/meson.build
+@@ -24,9 +24,10 @@ tests = [
+   'stats',
+ ]
+ 
+-if get_option('network')
+-  tests += 'network'
+-endif
++# package builds are supposed to run without network access
++#if get_option('network')
++#  tests += 'network'
++#endif
+ 
+ if get_option('streaming')
+   tests += 'nbd'
