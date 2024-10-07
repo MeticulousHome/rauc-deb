@@ -1,0 +1,40 @@
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Date: Tue, 10 Oct 2023 12:05:10 +0200
+Subject: Install dbus wrapper script to /usr/share/rauc instead of /usr/libexec
+Origin: vendor, Debian
+Forwarded: not-needed, Debian-specific
+
+According to the FHS /usr/libexec is for binaries only, so /usr/share/rauc
+seems to be better suited for a shell script.
+
+--- a/data/de.pengutronix.rauc.service.in
++++ b/data/de.pengutronix.rauc.service.in
+@@ -1,5 +1,5 @@
+ [D-BUS Service]
+ Name=de.pengutronix.rauc
+-Exec=@libexecdir@/rauc-service.sh
++Exec=@pkgdatadir@/rauc-service.sh
+ User=root
+ SystemdService=rauc.service
+--- a/meson.build
++++ b/meson.build
+@@ -22,8 +22,8 @@ if not prefixdir.startswith('/')
+ endif
+ bindir = join_paths(prefixdir, get_option('bindir'))
+ conf.set('bindir', bindir)
+-libexecdir = join_paths(prefixdir, get_option('libexecdir'))
+-conf.set('libexecdir', libexecdir)
++pkgdatadir = join_paths(prefixdir, get_option('datadir'), 'rauc')
++conf.set('pkgdatadir', pkgdatadir)
+ 
+ glibdep = dependency('glib-2.0', version : '>=2.56')
+ 
+@@ -222,7 +222,7 @@ if dbusinterfacesdir == ''
+   endif
+ endif
+ 
+-dbuswrapperdir = get_option('libexecdir')
++dbuswrapperdir = conf.get('pkgdatadir')
+ 
+ install_data('src/de.pengutronix.rauc.Installer.xml', install_dir : dbusinterfacesdir)
+ 

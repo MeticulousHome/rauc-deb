@@ -1,0 +1,1 @@
+extend-diff-ignore = (^|/)(contrib/cgi/|.lgtm.yml|.travis.yml|.version|scan-build|.github|test/(empty.dat|global.raucs|grubenv.test|random.dat|savedmanifest.raucm|savedslot.raucs|test-results/*))
