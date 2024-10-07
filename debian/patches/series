@@ -1,0 +1,3 @@
+# local adaptions for Debian
+disable-network-tests.patch
+install-wrapper-to-pkgdatadir.patch
