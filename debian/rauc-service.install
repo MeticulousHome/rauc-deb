@@ -1,4 +1,2 @@
 ${env:systemdsystemunitdir}
-usr/share/rauc
-usr/share/dbus-1
-usr/lib/systemd/catalog/rauc.catalog
+usr/libexec/rauc-service.sh

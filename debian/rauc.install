@@ -1,2 +1,4 @@
 usr/bin
 usr/share/man
+usr/share/dbus-1
+usr/lib/systemd/catalog/rauc.catalog
