@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   address:
-    runs-on: ubuntu-latest
+    runs-on: [Linux, x64, office, self-hosted]
     container:
       image: ghcr.io/rauc/rauc/rauc-ci:latest
       # allow mounting and devtmpfs in the container
