@@ -1,10 +1,14 @@
 name: style check
 
-on: [push, pull_request]
+on:
+  push:
+    # Branches only: image builds push a tag to every component repository.
+    branches: ['**']
+  pull_request:
 
 jobs:
   style:
-    runs-on: [self-hosted, Linux, x64, ubuntu-22.04]
+    runs-on: ${{ fromJSON(vars.OFFICE_RUNNERS == 'on' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && '["self-hosted","Linux","x64","ubuntu-22.04"]' || '"ubuntu-22.04"') }}
     steps:
     - uses: actions/checkout@v4
 
